@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>登录页面</title>
+	{load href="/static/css/bootstrap.min.css" /}
+	{load href="/static/js/jquery-3.3.1.min.js" /}
+	{load href="/static/js/bootstrap.min.js" /}
+
+	{load href="/static/nicedit/nicEdit.js" /}
+	<meta charset="utf-8">
+	<meta name="" content="">
+	<meta name="" content="">
+
+		<style>
+			body{
+				margin: 0;
+			}
+			#wrap{
+				position:fixed;
+				height: 100%;
+				width: 100%;
+				background: url('/static/images/04.jpg');
+				background-size: 100% 100%;
+				background-repeat: no-repeat;
+			}
+			.login{
+				width: 500px;
+				height: 400px;
+				background: rgba(0,0,0,0.3);
+				border: 1px dotted #666;
+				border-radius: 20px;
+				box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
+				margin: 150px auto;
+			}
+			.top{
+				width:500px; 
+				height:300px;
+				border-bottom: 2px solid #666;
+				text-align: center;
+			}
+			.bottom{
+				position: relative;
+			}
+			.user{
+				background: url('/static/images/zhanghao.jpg');
+			}
+			.pwd{
+				background: url('/static/images/mima.jpg');
+			}
+			.text{
+				width: 300px;
+				height: 50px;
+				margin-top: 30px;
+				border-radius: 5px;
+				box-shadow: inset 0 0 4px rgba(0,0,0,0.5);
+				background-size: 50px;
+				background-repeat: no-repeat;
+				text-indent: 60px;
+				color: #dbdbdb;
+				font-size: 17px;
+				font-weight: bold;
+				border:1px solid #fff; 
+			}
+			input[type="button"]{
+				width: 300px;
+				height: 60px;
+				background: url('/static/images/but.jpg');
+				background-size: 100% 100%;
+				background-repeat: no-repeat;
+				border-radius: 5px;
+				margin-top: 20px;
+			    cursor: pointer;
+			    display: block;
+			    margin: 20px auto;
+			    transition: 0.5s;
+			}
+			input[type="text"]:focus{
+				border: 1px solid #bddd22;
+			}
+			input[type="password"]:focus{
+				border: 1px solid #bddd22;
+			}
+			input[type="submit"]:hover{
+				border: 2px solid #88ada6;
+				box-shadow: inset 0 0 30px rgba(0,0,0,0.4);
+			}
+			img{
+				width: 40px;
+				height: 40px;
+				display: inline-block;
+				margin: 5px;
+			}
+			.words{
+				font-size: 22px;
+				font-weight: bold;
+				color: #eacd76;
+				position: absolute;
+				top: 37px;
+				left: 44px;
+				font-family: 楷体;
+			}
+			.icon{
+				position: absolute;
+				top: 22px;
+				right: 132px;
+			}
+			.tip{
+				/*margin: 2em 0 1em 0;*/
+				position: relative;
+			}
+			.tip p a{
+				color: #eacd76;
+				font-size: 18px;
+				float: left;
+				text-decoration: none;
+			}
+			.tip .left{
+				position: absolute;
+				top: -18px;
+				left: 25px;
+			}
+			.top .right{
+				position: absolute;
+				top: -18px;
+				right: 25px;
+			}
+			.tip p a:hover{
+				text-decoration: underline;
+			}
+	    </style>
+</head>
+<body>
+	<div id="wrap">
+		<div class="login">
+			<div class="top">
+				<form method="post" id="form">
+					<input type="text" id="studentid" name="studentid" class="text user" placeholder="请输入学号" onFocus="this.placeholder = '';" onBlur="if (this.placeholder == '') {this.placeholder = '请输入学号';}" >
+
+					<input type="password" id="password" name="password" class="text pwd" placeholder="请输入密码" onFocus="this.placeholder= '';" onBlur="if (this.placeholder == '') {this.placeholder = '请输入密码';}" >
+
+					<input type="button" value="" id="denglu">
+				</form>
+				<div class="tip">
+						<p class="left"><a href="#">Forgot password ?</p>
+						<p class="right"><a href="{:url('register/register')}">New here ? Sign Up</p>
+				</div>
+			</div>
+			<div class="bottom">
+					<div class="words">选择第三方登录方式</div>
+					<div class="icon">
+						<a href="#"><img src="/static/images/qqlogin.png"></a>
+						<a href="#"><img src="/static/images/weixin.png"></a>
+					</div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+	$(function(){
+		$('#denglu').on('click',function(){
+			$.ajax({
+				type : 'post',
+				url : "{:url('index/checkLogin')}",
+				data : $('#form').serialize(),
+				dataType : 'json',
+				success: function(data){
+					switch(data.status)
+					{
+						case 1:
+				            alert(data.message);
+				            window.location.href = "{:url('index/index/index')}";
+				           	break;
+						case 0:
+						case -1:
+							alert(data.message);
+							window.location.back();
+							break;
+					}
+				}
+			})
+		})
+	})
+</script>
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	{load href="/static/css/bootstrap.min.css" /}
+	{load href="/static/js/jquery-3.3.1.min.js" /}
+	{load href="/static/js/bootstrap.min.js" /}
+</head>
+<body>
+
+<form class="form-horizontal" method="post" id="form" enctype="multipart/form-data" action="saveFood">
+  <div class="form-group">
+    <label for="inputEmail1" class="col-sm-2 control-label">菜名:</label>
+    <div class="col-sm-10">
+      <input type="text" name="food_name" class="form-control" id="foodname" placeholder="菜名">
+    </div>
+  </div>
+
+  <input type="hidden" name="user_id" value="{$Think.session.user_id}">
+
+  <div class="form-group">
+    <label for="inputEmail2" class="col-sm-2 control-label">价格:</label>
+    <div class="col-sm-10">
+      <input type="text" name="price" class="form-control" id="price" placeholder="请输入0-99999之间的整数">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label">类别:</label>
+    <div class="col-sm-10">
+      <select name="type_id">
+      	{volist name="data" id="a" }
+      		<option value="{$a.id}">{$a.name}</option>
+      	{/volist}
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="inputPassword4" class="col-sm-2 control-label">图片:</label>
+    <div class="col-sm-10">
+      <input type="file" name="img" class="form-control" id="img">
+    </div>
+  </div>
+
+
+
+
+
+
+  
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-primary" id="register">注册</button>
+    </div>
+  </div>
+</form>
+
+</body>
+</html>
